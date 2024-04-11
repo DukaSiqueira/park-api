@@ -1,7 +1,10 @@
 package br.com.duka.siqueira.parkapi.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -17,10 +20,13 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
     @Column(name = "email", nullable = false, unique = true)
     private String email;
+
     @Column(name = "password", nullable = false)
     private String password;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false, length = 25)
     private Role role;
@@ -28,10 +34,13 @@ public class User implements Serializable {
     // Attributes for audit logs
     @Column(name = "created_at")
     private LocalDateTime createdAt;
+
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
     @Column(name = "created_by")
     private String createBy;
+
     @Column(name = "updated_by")
     private String updatedBy;
 
