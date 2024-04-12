@@ -6,6 +6,7 @@ import br.com.duka.siqueira.parkapi.web.dto.UserCreateDTO;
 import br.com.duka.siqueira.parkapi.web.dto.UserPasswordDTO;
 import br.com.duka.siqueira.parkapi.web.dto.UserResponseDTO;
 import br.com.duka.siqueira.parkapi.web.dto.mapper.UserMapper;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ public class UserController {
     private final UserService service;
 
     @PostMapping
-    public ResponseEntity<UserResponseDTO> create(@RequestBody UserCreateDTO createDTO) {
+    public ResponseEntity<UserResponseDTO> create(@Valid @RequestBody UserCreateDTO createDTO) {
         User user = service.create(UserMapper.toUser(createDTO));
         return ResponseEntity.status(CREATED)
                 .body(UserMapper.toDTO(user));
