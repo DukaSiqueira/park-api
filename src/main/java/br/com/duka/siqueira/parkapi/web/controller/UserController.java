@@ -2,6 +2,9 @@ package br.com.duka.siqueira.parkapi.web.controller;
 
 import br.com.duka.siqueira.parkapi.entity.User;
 import br.com.duka.siqueira.parkapi.service.UserService;
+import br.com.duka.siqueira.parkapi.web.dto.UserCreateDTO;
+import br.com.duka.siqueira.parkapi.web.dto.UserResponseDTO;
+import br.com.duka.siqueira.parkapi.web.dto.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,9 +21,10 @@ public class UserController {
     private final UserService service;
 
     @PostMapping
-    public ResponseEntity<User> create(@RequestBody User user) {
+    public ResponseEntity<UserResponseDTO> create(@RequestBody UserCreateDTO createDTO) {
+        User user = service.create(UserMapper.toUser(createDTO));
         return ResponseEntity.status(CREATED)
-                .body(service.create(user));
+                .body(UserMapper.toDTO(user));
     }
 
     @GetMapping("/{id}")

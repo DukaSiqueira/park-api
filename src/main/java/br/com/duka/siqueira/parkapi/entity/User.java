@@ -29,7 +29,7 @@ public class User implements Serializable {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false, length = 25)
-    private Role role;
+    private Role role = Role.ROLE_CLIENT;
 
     // Attributes for audit logs
     @Column(name = "created_at")
@@ -44,7 +44,7 @@ public class User implements Serializable {
     @Column(name = "updated_by")
     private String updatedBy;
 
-    private enum Role {
+    public enum Role {
         ROLE_ADMIN, ROLE_CLIENT
     }
 
