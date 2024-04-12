@@ -28,7 +28,7 @@ public class UserService {
     }
 
     @Transactional
-    public User updatePassword(Long id, String currentPassword, String newPassword, String confirmPassword) {
+    public void updatePassword(Long id, String currentPassword, String newPassword, String confirmPassword) {
         if (!newPassword.equals(confirmPassword)) {
             throw new RuntimeException("password confirmation different from new password");
         }
@@ -40,7 +40,6 @@ public class UserService {
             throw new RuntimeException("Incorrect current password");
         }
         user.setPassword(newPassword);
-        return user;
     }
 
     @Transactional(readOnly = true)
