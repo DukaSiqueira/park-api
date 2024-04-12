@@ -3,6 +3,7 @@ package br.com.duka.siqueira.parkapi.web.controller;
 import br.com.duka.siqueira.parkapi.entity.User;
 import br.com.duka.siqueira.parkapi.service.UserService;
 import br.com.duka.siqueira.parkapi.web.dto.UserCreateDTO;
+import br.com.duka.siqueira.parkapi.web.dto.UserPasswordDTO;
 import br.com.duka.siqueira.parkapi.web.dto.UserResponseDTO;
 import br.com.duka.siqueira.parkapi.web.dto.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
@@ -35,9 +36,12 @@ public class UserController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<User> updatePassword(@PathVariable Long id, @RequestBody User user) {
-        return ResponseEntity.ok()
-                .body(service.updatePassword(id, user.getPassword()));
+    public ResponseEntity<Void> updatePassword(@PathVariable Long id, @RequestBody UserPasswordDTO passwordDTO) {
+        service.updatePassword(id,
+                passwordDTO.getCurrentPassword(),
+                passwordDTO.getNewPassword(),
+                passwordDTO.getConfirmPassword());
+        return ResponseEntity.noContent().build();
 
     }
 
