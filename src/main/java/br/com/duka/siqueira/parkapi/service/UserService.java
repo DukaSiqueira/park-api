@@ -2,6 +2,7 @@ package br.com.duka.siqueira.parkapi.service;
 
 import br.com.duka.siqueira.parkapi.entity.User;
 import br.com.duka.siqueira.parkapi.exception.EntityNotFoundException;
+import br.com.duka.siqueira.parkapi.exception.PasswordInvalidException;
 import br.com.duka.siqueira.parkapi.exception.UserNameUniqueViolationException;
 import br.com.duka.siqueira.parkapi.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -39,14 +40,14 @@ public class UserService {
     @Transactional
     public void updatePassword(Long id, String currentPassword, String newPassword, String confirmPassword) {
         if (!newPassword.equals(confirmPassword)) {
-            throw new RuntimeException("password confirmation different from new password");
+            throw new PasswordInvalidException("Password confirmation different from new password");
         }
 
 
         User user = findById(id);
 
         if (!user.getPassword().equals(currentPassword)) {
-            throw new RuntimeException("Incorrect current password");
+            throw new PasswordInvalidException("Incorrect current password");
         }
         user.setPassword(newPassword);
     }

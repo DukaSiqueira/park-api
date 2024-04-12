@@ -1,6 +1,7 @@
 package br.com.duka.siqueira.parkapi.web.exception;
 
 import br.com.duka.siqueira.parkapi.exception.EntityNotFoundException;
+import br.com.duka.siqueira.parkapi.exception.PasswordInvalidException;
 import br.com.duka.siqueira.parkapi.exception.UserNameUniqueViolationException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -51,4 +52,12 @@ public class ApiExceptionHandler {
                         ex.getMessage()));
     }
 
+    @ExceptionHandler(PasswordInvalidException.class)
+    public ResponseEntity<ErrorMessage> passwordInvalidException(PasswordInvalidException ex, HttpServletRequest request) {
+        log.error("Api Error - ", ex);
+        return ResponseEntity
+                .status(BAD_REQUEST)
+                .contentType(APPLICATION_JSON)
+                .body(new ErrorMessage(request, BAD_REQUEST, ex.getMessage()));
+    }
 }
