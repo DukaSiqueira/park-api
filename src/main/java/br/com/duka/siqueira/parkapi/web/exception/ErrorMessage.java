@@ -1,5 +1,6 @@
 package br.com.duka.siqueira.parkapi.web.exception;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.Getter;
 import lombok.ToString;
@@ -10,6 +11,8 @@ import org.springframework.validation.FieldError;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
+
 @Getter @ToString
 public class ErrorMessage {
 
@@ -18,6 +21,7 @@ public class ErrorMessage {
     private int status;
     private String statusText;
     private String message;
+    @JsonInclude(NON_NULL)
     private Map<String, String> errors;
 
     public ErrorMessage() {}
