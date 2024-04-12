@@ -1,6 +1,7 @@
 package br.com.duka.siqueira.parkapi.service;
 
 import br.com.duka.siqueira.parkapi.entity.User;
+import br.com.duka.siqueira.parkapi.exception.EntityNotFoundException;
 import br.com.duka.siqueira.parkapi.exception.UserNameUniqueViolationException;
 import br.com.duka.siqueira.parkapi.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +32,7 @@ public class UserService {
     @Transactional(readOnly = true)
     public User findById(Long id) {
         return repository.findById(id).orElseThrow(
-                () -> new RuntimeException("User not found")
+                () -> new EntityNotFoundException(String.format("User id {%s} not found", id))
         );
     }
 
