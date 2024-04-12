@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import static org.springframework.http.HttpStatus.CREATED;
 
 @RequiredArgsConstructor
@@ -34,4 +36,12 @@ public class UserController {
                 .body(service.updatePassword(id, user.getPassword()));
 
     }
+
+    @GetMapping
+    public ResponseEntity<List<User>> findAll() {
+        return ResponseEntity.ok()
+                .body(service.findAll());
+
+    }
+
 }
